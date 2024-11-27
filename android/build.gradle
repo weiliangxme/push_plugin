@@ -1,0 +1,65 @@
+group 'com.bee.plugin.flutter_plugin'
+version '1.0'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://developer.huawei.com/repo/' }
+        maven { url 'https://developer.hihonor.com/repo' }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath 'com.huawei.agconnect:agcp:1.4.1.300'
+        classpath 'com.google.gms:google-services:4.3.8'
+        classpath 'com.hihonor.mcs:asplugin:2.0.1.300'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://developer.huawei.com/repo/' }
+        maven { url 'https://developer.hihonor.com/repo' }
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.huawei.agconnect'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.hihonor.mcs.asplugin'
+android {
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 21
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+dependencies {
+    compileOnly 'androidx.appcompat:appcompat:1.0.0'
+    compileOnly files('libs/flutter.jar')
+
+    implementation 'com.google.code.gson:gson:2.8.0'
+
+    def mixpush_version = '2.4.0'
+    implementation "io.github.mixpush:mixpush-core:$mixpush_version" // 核心包
+    implementation "io.github.mixpush:mixpush-mi:$mixpush_version" // 小米推送
+    implementation 'com.meizu.flyme.internet:push-internal:4.3.0'//魅族推送
+//    implementation "io.github.mixpush:mixpush-meizu:$mixpush_version"  // 魅族推送
+    implementation "io.github.mixpush:mixpush-huawei:$mixpush_version"  // 华为推送
+    implementation "io.github.mixpush:mixpush-oppo:$mixpush_version"  // OPPO推送
+    implementation "io.github.mixpush:mixpush-vivo:$mixpush_version"  // VIVO推送
+    implementation 'com.hihonor.mcs:push:7.0.61.302'//荣耀推送
+    implementation platform('com.google.firebase:firebase-bom:28.1.0')//谷歌fcm推送
+    implementation 'com.google.firebase:firebase-messaging'//谷歌fcm推送
+    implementation 'com.google.firebase:firebase-analytics'//谷歌fcm推送
+
+
+}

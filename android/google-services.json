@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "872638997322",
+    "project_id": "beepushtest",
+    "storage_bucket": "beepushtest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872638997322:android:1e80a74d21479c401d17b3",
+        "android_client_info": {
+          "package_name": "com.bee.plugin.flutter_plugin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872638997322-ttircqasou2cg5h4sm24k0fas1tamnck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkq0pivYoTr8iN3nubqlXtonZwYF7PwfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872638997322-ttircqasou2cg5h4sm24k0fas1tamnck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
