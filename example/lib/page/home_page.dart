@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
 
 
   initPush(){
-    _pushPlugin.init(baseUrl: '', appId:'',uid: '', language: 'zh-Hans');
+    _pushPlugin.init(baseUrl: '', appId:'',uid: '', version:"",language: 'zh-Hans');
   }
 
   listenerNotification(){
@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
         case JumpType.internalPage:
         //跳转内部页面
           Navigator.of(context).pushNamed(event.page!);
+          break;
         case JumpType.inAppWebView:
         //跳转内部 webview
         //   Navigator.of(context).push(WebView());

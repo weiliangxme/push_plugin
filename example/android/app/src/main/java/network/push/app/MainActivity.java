@@ -31,7 +31,7 @@ public class MainActivity extends FlutterActivity {
         if(extras==null)
             return;
         //根据业务逻辑解析通知
-        Intent intentx=new Intent("com.test.notifycation.message");
+        Intent intentx=new Intent("x.me.notifycation.message");
         intentx.putExtras(extras);
         startActivity(intentx);
     }

@@ -48,7 +48,7 @@ public class FcmService extends FirebaseMessagingService {
         } else {
             builder = new Notification.Builder(this);
         }
-        Intent intent = new Intent("com.test.notifycation.message");
+        Intent intent = new Intent("x.me.notifycation.message");
         try {
             JSONObject payloadObject = new JSONObject(payload);
             if (payloadObject.has("payload")){
@@ -81,7 +81,7 @@ public class FcmService extends FirebaseMessagingService {
                     int joinId = (int) jsonObject.get("joinId");
                     intent.putExtra("joinId", joinId);
                 }
-                 if (jsonObject.has("sendPlanDetailId")){
+                if (jsonObject.has("sendPlanDetailId")){
                     Object object = jsonObject.get("sendPlanDetailId");
                     if (object instanceof Integer){
                         int sendPlanDetailId = (int) object;

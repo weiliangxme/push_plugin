@@ -10,7 +10,7 @@ import 'model/jump_event.dart';
 import 'android_push/android_push.dart';
 import 'model/push_click_model.dart';
 import 'push_plugin_platform_interface.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+// import 'package:package_info_plus/package_info_plus.dart';
 export 'model/jump_event.dart';
 export 'model/push_click_model.dart';
 export 'api/push_api.dart';
@@ -34,10 +34,9 @@ class PushPlugin {
     return PushPluginPlatform.instance.getPlatformVersion();
   }
 
-  Future<void> init({required String baseUrl,required String appId,required String uid,required String language})async{
-    await _initParams(baseUrl: baseUrl,appId:appId,uid: uid,language: language);
+  Future<void> init({required String baseUrl,required String appId,required String uid,required String version,required String language})async{
+    await _initParams(baseUrl: baseUrl,appId:appId,uid: uid,version:version,language: language);
     await Network.buildDio();
-
     if(Platform.isIOS){
       final connector = createPushConnector();
       connector.configure(
@@ -85,17 +84,17 @@ class PushPlugin {
   }
 
   unregisterDevice(){
-     PushApi.unRegisterPushId();
+    PushApi.unRegisterPushId();
   }
 
-  Future<void> _initParams({required String baseUrl,required String appId ,required String uid,required String language})async{
-    var info = await PackageInfo.fromPlatform();
+  Future<void> _initParams({required String baseUrl,required String appId ,required String uid,required String version,required String language})async{
+    // var info = await PackageInfo.fromPlatform();
     Constants.baseUrl = baseUrl;
     ApiPath.pushUrl = baseUrl;
     Constants.uid = uid;
     Constants.language = language;
     Constants.channel = Platform.isIOS ? Constants.appstore : Constants.googlePlay;
-    Constants.version = info.version;
+    Constants.version = version;
     Constants.appId =appId;
   }
 

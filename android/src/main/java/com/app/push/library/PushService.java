@@ -11,8 +11,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.installations.InstallationTokenResult;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.hihonor.push.sdk.HonorPushCallback;
-import com.hihonor.push.sdk.HonorPushClient;
+//import com.hihonor.push.sdk.HonorPushCallback;
+//import com.hihonor.push.sdk.HonorPushClient;
 import com.mixpush.core.MixPushClient;
 import com.mixpush.core.MixPushLogger;
 
@@ -56,54 +56,52 @@ public class PushService {
         });
         MixPushClient.getInstance().setPushReceiver(new LibraryPushReceiver());
         MixPushClient.getInstance().register(context);
-        if(isRegisterFcm()){
-            // google推送
-            FirebaseMessaging.getInstance().setAutoInitEnabled(true);
-            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-                @Override
-                public void onComplete(@NonNull Task<String> task) {
-                    if(!task.isSuccessful()){
-                        return;
-                    }
-                    // Get new Instance ID token
-                    String token = task.getResult();
-                    Log.e("bee_push fcm_getToken",token);
-                    IPushListener iPushListener= PushService.getInstance().getListener();
-                    if(iPushListener!=null){
-                        iPushListener.onGetToken(new PushPlatform("google",token));
-                    }
+        // google推送
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if(!task.isSuccessful()){
+                    return;
                 }
-            });
-        }
+                // Get new Instance ID token
+                String token = task.getResult();
+                Log.e("bee_push fcm_getToken",token);
+                IPushListener iPushListener= PushService.getInstance().getListener();
+                if(iPushListener!=null){
+                    iPushListener.onGetToken(new PushPlatform("google",token));
+                }
+            }
+        });
 //        initHonor(context);
     }
 
-    private void initHonor(Context context) {
-        boolean isSupport = HonorPushClient.getInstance().checkSupportHonorPush(context);
-        Log.e("bee_push"," isSupport HonorPush"+isSupport);
-        if (isSupport) {
-            HonorPushClient.getInstance().init(context, true);
-            Log.e("bee_push","HonorPush init");
-            HonorPushClient.getInstance().getPushToken(new HonorPushCallback<String>() {
-                @Override
-                public void onSuccess(String pushToken) {
-                    // TODO: 新Token处理
-                    Log.e("bee_push","++++++HonorPushCallback onSuccess pushToken :"+pushToken);
-                    IPushListener iPushListener= PushService.getInstance().getListener();
-                    if(iPushListener!=null){
-                        iPushListener.onGetToken(new PushPlatform("honor",pushToken));
-                    }
-                }
-                @Override
-                public void onFailure(int errorCode, String errorString) {
-                    // TODO: 错误处理
-                    Log.e("bee_push","++++++HonorPushCallback onFailure errorString :"+errorString);
-                }
-            });
-        }
-        // 获取PushToken
-
-    }
+//    private void initHonor(Context context) {
+//        boolean isSupport = HonorPushClient.getInstance().checkSupportHonorPush(context);
+//        Log.e("bee_push"," isSupport HonorPush"+isSupport);
+//        if (isSupport) {
+//            HonorPushClient.getInstance().init(context, true);
+//            Log.e("bee_push","HonorPush init");
+//            HonorPushClient.getInstance().getPushToken(new HonorPushCallback<String>() {
+//                @Override
+//                public void onSuccess(String pushToken) {
+//                    // TODO: 新Token处理
+//                    Log.e("bee_push","++++++HonorPushCallback onSuccess pushToken :"+pushToken);
+//                    IPushListener iPushListener= PushService.getInstance().getListener();
+//                    if(iPushListener!=null){
+//                        iPushListener.onGetToken(new PushPlatform("honor",pushToken));
+//                    }
+//                }
+//                @Override
+//                public void onFailure(int errorCode, String errorString) {
+//                    // TODO: 错误处理
+//                    Log.e("bee_push","++++++HonorPushCallback onFailure errorString :"+errorString);
+//                }
+//            });
+//        }
+//        // 获取PushToken
+//
+//    }
 
     /**
      * 初始化函数
@@ -125,44 +123,42 @@ public class PushService {
 
         MixPushClient.getInstance().setPushReceiver(new LibraryPushReceiver());
         MixPushClient.getInstance().register(context);
-        if(isRegisterFcm()){
-            // google推送
-            FirebaseMessaging.getInstance().setAutoInitEnabled(true);
-            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-                @Override
-                public void onComplete(@NonNull Task<String> task) {
-                    if(!task.isSuccessful()){
-                        return;
-                    }
-                    // Get new Instance ID token
-                    String token = task.getResult();
-                    Log.e("bee_push fcm_onNewToken",token);
-                    IPushListener iPushListener= PushService.getInstance().getListener();
-                    if(iPushListener!=null){
-                        iPushListener.onGetToken(new PushPlatform("google",token));
-                    }
+        // google推送
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if(!task.isSuccessful()){
+                    return;
                 }
-            });
-        }
-        initHonor(context);
+                // Get new Instance ID token
+                String token = task.getResult();
+                Log.e("bee_push fcm_onNewToken",token);
+                IPushListener iPushListener= PushService.getInstance().getListener();
+                if(iPushListener!=null){
+                    iPushListener.onGetToken(new PushPlatform("google",token));
+                }
+            }
+        });
+//        initHonor(context);
     }
 
-    private boolean isRegisterFcm() {
-        boolean isCn = false;
-        //Asia/Harbin  Asia/Shanghai  Asia/Chongqing  Asia/Urumqi Asia/Kashgar
+//    private boolean isRegisterFcm() {
+//        boolean isCn = false;
+    //Asia/Harbin  Asia/Shanghai  Asia/Chongqing  Asia/Urumqi Asia/Kashgar
 //        String timeZone = TimeZone.getDefault().getID();
 //        if("Asia/Shanghai".equals(timeZone)||"Asia/Harbin".equals(timeZone)||"Asia/Chongqing".equals(timeZone)||"Asia/Urumqi".equals(timeZone)||"Asia/Kashgar".equals(timeZone)){
 //            isCn = true;
 //        }
-        //Meizu  Xiaomi HONOR // 下面是为了走厂商通道 判断
+    //Meizu  Xiaomi HONOR // 下面是为了走厂商通道 判断
 //        if (Build.MANUFACTURER.isEmpty()){
 //            return  true;
 //        }else if(isCn&&(Build.MANUFACTURER.equals("Xiaomi")||Build.MANUFACTURER.equals("Meizu")||Build.MANUFACTURER.equals("HONOR"))){
 //            return false;
 //        }
-        Log.d("bee_push isRegisterFcm","true");
-        return  true;
-    }
+//        Log.d("bee_push isRegisterFcm","true");
+
+//    }
 
     /**设置监听
      * @param listener

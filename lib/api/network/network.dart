@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
 import 'dio_app_interceptors.dart';
@@ -16,7 +15,7 @@ class Network {
   }
 
   static final BaseOptions _options = new BaseOptions(
-      connectTimeout: 15000, receiveTimeout: 15000, sendTimeout: 15000, contentType: "application/json");
+      connectTimeout: Duration(seconds: 15), receiveTimeout: Duration(seconds: 15), sendTimeout: Duration(seconds: 15), contentType: "application/json");
 
   static Future get(String url,
       {Map<String, dynamic>? params, bool showPrint = false, bool showLoading = false}) async {
@@ -60,7 +59,6 @@ class Network {
       dio.interceptors.add(NetInterceptor.dioInterceptors());
 
       _dio = dio;
-      // setProxy();
     }
     return _dio!;
   }
@@ -69,12 +67,5 @@ class Network {
     return _dio!;
   }
 
-  static void setProxy() {
-    (_dio!.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-      client.findProxy = (uri) {
-        return "PROXY xxx:8888";
-      };
-      client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-    };
-  }
+
 }
