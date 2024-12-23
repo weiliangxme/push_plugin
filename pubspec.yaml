@@ -13,8 +13,9 @@ dependencies:
   dio: ^5.4.0
   #  package_info_plus:
   mz_rsa_plugin:
-    path: mz_rsa_plugin
-
+    git:
+      url: "git@github.com:bee-open/mz_rsa_plugin.git"
+      ref: f0450aff4fca430db327ecb82c7eccbbbd200543
 dev_dependencies:
   flutter_test:
     sdk: flutter

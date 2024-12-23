@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
 
 
   initPush(){
-    _pushPlugin.init(baseUrl: '', appId:'',uid: '', version:"",language: 'zh-Hans');
+    _pushPlugin.init(baseUrl: 'https://cospush.test.bee996.com', appId:'bbpay',uid: '633562c451bc5200061a8709', version:"",language: 'zh-Hans');
   }
 
   listenerNotification(){
