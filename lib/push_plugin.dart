@@ -34,9 +34,10 @@ class PushPlugin {
     return PushPluginPlatform.instance.getPlatformVersion();
   }
 
-  Future<void> init({required String baseUrl,required String appId,required String uid,required String version,required String language})async{
+  Future<bool> init({required String baseUrl,required String appId,required String uid,required String version,required String language})async{
     await _initParams(baseUrl: baseUrl,appId:appId,uid: uid,version:version,language: language);
     await Network.buildDio();
+    Completer<bool> completer = Completer();
     if(Platform.isIOS){
       final connector = createPushConnector();
       connector.configure(
@@ -45,14 +46,14 @@ class PushPlugin {
         onMessage: (data) => _iosOpenNotification('onMessage', data),
         onBackgroundMessage: (data) => _iosOpenNotification('onBackgroundMessage', data),
       );
-
       // Displaying notification while in foreground
       if(connector is ApnsPushConnector){
         connector.shouldPresent = (x) => Future.value(true);
       }
 
-      connector.token.addListener(() {
-        PushApi.registerPushNotificationId('apns', connector.token.value);
+      connector.token.addListener(() async {
+        bool result = await PushApi.registerPushNotificationId('apns', connector.token.value);
+        completer.complete(result);
       });
 
       connector.requestNotificationPermissions();
@@ -72,7 +73,8 @@ class PushPlugin {
             String rid = map["registrationId"] ?? map["token"];
             String platform = map["platform"];
             _channel = platform;
-            PushApi.registerPushNotificationId(platform, rid);
+            bool result = await PushApi.registerPushNotificationId(platform, rid);
+            completer.complete(result);
           },
           onReceiveNotification: (String message) async {},
           onOpenNotification: (String message) async {
@@ -81,6 +83,7 @@ class PushPlugin {
           onReceiveMessage: (String message) async {}
       );
     }
+    return completer.future;
   }
 
   unregisterDevice(){

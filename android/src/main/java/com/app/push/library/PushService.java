@@ -62,6 +62,7 @@ public class PushService {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 if(!task.isSuccessful()){
+                    Log.e("bee_push ","fcm NewToken fail");
                     return;
                 }
                 // Get new Instance ID token
@@ -129,6 +130,7 @@ public class PushService {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 if(!task.isSuccessful()){
+                    Log.e("bee_push ","fcm NewToken fail");
                     return;
                 }
                 // Get new Instance ID token

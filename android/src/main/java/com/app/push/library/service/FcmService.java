@@ -53,7 +53,7 @@ public class FcmService extends FirebaseMessagingService {
             JSONObject payloadObject = new JSONObject(payload);
             if (payloadObject.has("payload")){
                 JSONObject jsonObject = payloadObject.getJSONObject("payload");
-                Log.e("bee_push create jsonObject",""+jsonObject.toString());
+                Log.e("bee_push create",""+jsonObject.toString());
                 if (jsonObject.has("browserOpenType")){
                     boolean browserOpenType = (boolean) jsonObject.get("browserOpenType");
                     intent.putExtra("browserOpenType", browserOpenType);
@@ -103,11 +103,11 @@ public class FcmService extends FirebaseMessagingService {
                 }
             }
         } catch (JSONException e) {
-            Log.e("bee_push createNotification",""+e);
+            Log.e("bee_push ",""+e);
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent;
-        Log.d("bee_push FCM_createNotification","FLAG_IMMUTABLE");
+        Log.d("bee_push ","FLAG_IMMUTABLE");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             pendingIntent = PendingIntent.getActivity(this, 0, intent,  PendingIntent.FLAG_IMMUTABLE);
         } else {
@@ -118,7 +118,7 @@ public class FcmService extends FirebaseMessagingService {
         builder.setContentText(content);
         builder.setContentIntent(pendingIntent);
         builder.setTicker("");//首次收到的时候，在状态栏中，图标的右侧显示的文字
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(R.mipmap.xme_push_logo);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
         builder.setAutoCancel(true);
         manager.notify(0, builder.build());

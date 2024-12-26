@@ -16,8 +16,8 @@ class PushApi {
   ///   注册推送id到服务器
   ///   platform：推送渠道
   ///   id：推送token
-  static void registerPushNotificationId(platform, id) async {
-    Network.post(
+  static Future<bool> registerPushNotificationId(platform, id) async {
+    var response = await Network.post(
       ApiPath.pushUrl + ApiPath.registerPushId,
       params: {
         "platform": platform,
@@ -28,6 +28,13 @@ class PushApi {
         "env": null
       },
     );
+    var responseModel = BaseResponseModel.fromJson(response);
+    if(!responseModel.success){
+      print("register PushId fail:${responseModel.message}");
+    }else{
+      print("register pushId success");
+    }
+    return responseModel.success;
   }
 
   ///   注销用户推送id

@@ -20,7 +20,12 @@
 
 
     <application>
-
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/xme_push_logo" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/bee_push_black" />
         <service
             android:name="com.app.push.library.service.FcmService"
             android:exported="true">
