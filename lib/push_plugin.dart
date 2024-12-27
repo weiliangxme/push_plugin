@@ -52,6 +52,7 @@ class PushPlugin {
       }
 
       connector.token.addListener(() async {
+        print("++++++registerPushNotificationId apns token:${connector.token.value}");
         bool result = await PushApi.registerPushNotificationId('apns', connector.token.value);
         completer.complete(result);
       });
